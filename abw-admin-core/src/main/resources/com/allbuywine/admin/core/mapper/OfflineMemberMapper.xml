@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.allbuywine.admin.core.mapper.OfflineMemberMapper">
+    <select id="countMembers" parameterMap="java.util.Map" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM abw_admin_member_offline member
+        <if test="member.name !=null and member.name !=''">
+            where member.name LIKE '%'||#{member.name}||'%'
+        </if>
+    </select>
+
+    <select id="queryMembers" parameterType="java.util.Map" resultType="MemberOffline">
+        select member.id, member.name, member.mobile, member.email, member.sex, member.address, member.point,
+        member.register_date
+        from abw_admin_member_offline member
+        <if test="member.name !=null and member.name !=''">
+            where member.name LIKE '%'||#{member.name}||'%'
+        </if>
+        ORDER BY member.id desc
+        limit <![CDATA[ #{page.iDisplayStart},#{page.iDisplayLength}]]>
+    </select>
+</mapper>
+

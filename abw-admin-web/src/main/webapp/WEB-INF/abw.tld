@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+        version="2.1">
+
+    <tlib-version>1.0</tlib-version>
+    <short-name>abw</short-name><!-- 标签库名称 -->
+    <uri>http://www.allbuywine.com/tags</uri><!-- 导入标签库时会用到 -->
+
+    <!-- 权限验证标签 -->
+    <tag>
+        <name>securityUrl</name> <!-- 标签名称 -->
+        <tag-class>com.allbuywine.admin.tag.SecurityUrlTag</tag-class> <!-- 对应类 -->
+        <body-content>scriptless</body-content>
+        <attribute>
+            <name>url</name>
+            <required>true</required>
+        </attribute>
+    </tag>
+
+</taglib>

@@ -1,0 +1,50 @@
+#dialog_simple {
+    z-index: 999
+}
+.msg, .errmsg {
+    padding: 3px 24px 3px;
+    *padding: 5px 24px 4px;
+    color: #fff;
+    height: 20px;
+    line-height: 18px;
+    border-radius: 3px
+}
+
+.msg {
+    background: #68af02;
+    *border-bottom: 2px solid #68af02;
+    z-index: 99
+}
+
+.errmsg {
+    background: #ef8f00;
+    *border-bottom: 2px solid #ef8f00;
+    z-index: 99
+}
+
+.dataTables_info {
+    font-weight: bold;
+}
+
+.cat-name {
+    text-align: left;
+}
+.error {
+    color:red;
+}
+
+.required {
+    color: red;
+}
+
+.selected {
+    background-color: #d1d6d9;
+}
+
+.details-open-control {
+    background: url('/images/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+.details-close-control {
+    background: url('/images/details_close.png') no-repeat center center;
+}

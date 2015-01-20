@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.allbuywine.admin.core.mapper.DeptRightsMapper">
+    <!--添加部门和权限的关联关系-->
+    <insert id="batchAdd">
+        INSERT INTO abw_admin_dept_rights(dept_id, rights_id)
+        <foreach collection="list" item="item" index="index" separator="union all">
+            select
+            #{deptId},
+            #{item}
+            from dual
+        </foreach>
+    </insert>
+
+    <!--删除部门和权限的关联关系-->
+    <delete id="delete" parameterType="DeptRights">
+      DELETE FROM abw_admin_dept_rights WHERE dept_id =#{deptId} AND rights_id=#{rightsId}
+    </delete>
+
+    <!--批量删除部门对于的多个权限-->
+    <delete id="batchDelete">
+        DELETE FROM abw_admin_dept_rights WHERE dept_id=#{deptId}
+        <if test="list != null">
+            AND rights_id in (
+            <foreach collection="list" item="item" index="index" separator=",">
+              #{item, jdbcType=NUMERIC}
+            </foreach>
+            )
+        </if>
+    </delete>
+
+    <!--根据部门id查询对应的权限id的List-->
+    <select id="findRightsIdListByDeptId" resultType="java.lang.Integer">
+      SELECT rights_id FROM abw_admin_dept_rights WHERE dept_id=#{id}
+    </select>
+
+    <!--根据部门id获取非空url的url集合-->
+    <select id="findRightsUrlByDeptId" resultType="java.lang.String">
+      select
+        r.url
+      from
+        abw_admin_dept_rights dr,
+        abw_admin_rights r
+      where dr.dept_id=#{id}
+        and r.id = dr.rights_id
+        and r.url is not null
+      order by id
+    </select>
+
+    <!--根据部门id获取完整的权限信息-->
+    <select id="findRightsByDeptId" resultType="com.allbuywine.admin.bean.domain.Rights">
+        SELECT r.id, r.parent_id parentId, r.name, r.url, r.description
+        FROM abw_admin_dept_rights dr, abw_admin_rights r
+        WHERE dr.dept_id=#{deptId}
+          AND r.id = dr.rights_id
+          AND r.is_show=1
+    </select>
+
+    <!--查询菜单被关联的数量-->
+    <select id="countRights" resultType="java.lang.Integer">
+        SELECT COUNT(rights_id) FROM abw_admin_dept_rights WHERE rights_id=#{id}
+    </select>
+
+    <!--查询部门关联菜单的数量-->
+    <select id="countDepts" resultType="java.lang.Integer">
+        SELECT COUNT(dept_id)  FROM abw_admin_dept_rights WHERE dept_id=#{id}
+    </select>
+</mapper>
+

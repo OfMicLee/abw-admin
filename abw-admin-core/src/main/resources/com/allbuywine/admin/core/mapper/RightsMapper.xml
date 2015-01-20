@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.allbuywine.admin.core.mapper.RightsMapper">
+    <select id="listAll" resultType="com.allbuywine.admin.bean.domain.Rights">
+        select
+          t.id id,
+          t.parent_id parentId,
+          t.name name,
+          t.url url,
+          t.description description,
+          t.is_show isShow
+        from abw_admin_rights t
+--         START WITH t.parent_id =0
+--         connect by prior t.id =  t.parent_id
+        where FIND_IN_SET(t.id, getChildList(0));
+    </select>
+
+    <!--保存权限-->
+    <insert id="save" parameterType="Rights">
+        INSERT INTO
+        abw_admin_rights(parent_id, name, url, description, is_show)
+        VALUES(
+        #{parentId, jdbcType=NUMERIC},
+        #{name, jdbcType=VARCHAR},
+        #{url, jdbcType=VARCHAR},
+        #{description, jdbcType=VARCHAR},
+        #{isShow, jdbcType=NUMERIC}
+        )
+    </insert>
+
+    <!--更新权限-->
+    <update id="update" parameterType="Rights">
+        UPDATE
+        abw_admin_rights
+        <set>
+            <if test="parentId != null">parent_id=#{parentId},</if>
+            <if test="name != null">name=#{name},</if>
+            <if test="url != null">url=#{url},</if>
+            <if test="isShow != null">is_show=#{isShow},</if>
+            <if test="description != null">description=#{description}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!--删除权限-->
+    <delete id="delete">
+        DELETE FROM abw_admin_rights WHERE id=#{id}
+    </delete>
+
+    <!--单个菜单节点的查询-->
+    <select id="getById" resultType="com.allbuywine.admin.bean.domain.Rights">
+        SELECT id, parent_id parentId, name, url, description FROM abw_admin_rights WHERE id = #{id}
+    </select>
+
+    <!--查询子全权限的数量-->
+    <select id="countChildByParentId" resultType="java.lang.Integer">
+      SELECT count(id) FROM abw_admin_rights WHERE parent_id=#{id}
+    </select>
+
+    <!--查询权限名称-->
+    <select id="countName" resultType="java.lang.Integer">
+        SELECT count(name) FROM abw_admin_rights WHERE name = #{name}
+        <if test="id != null">
+            AND id != #{id}
+        </if>
+    </select>
+</mapper>
+

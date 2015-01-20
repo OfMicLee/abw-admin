@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.allbuywine.admin.core.mapper.OperateLogMapper">
+    <!-- 添加一条操作日志-->
+    <insert id="add" parameterType="com.allbuywine.admin.bean.domain.OperateLog">
+        insert into abw_admin_operate_log(actionname, actionurl, params, operatorid, operatorname, operatetime, operateip)
+        values(#{actionName}, #{actionUrl}, #{params}, #{operatorId}, #{operatorName}, now(), #{operateIp})
+    </insert>
+
+    <!-- 操作日志公用查询SQL-->
+    <sql id="querySQL">
+        select actionName, actionUrl, params, operatorId, operatorName, date_format(operateTime,'%Y-%m-%d %T') operateTime, operateIp
+        from abw_admin_operate_log
+        where 1=1
+        <if test="startTime != null and startTime != ''">
+            and operatetime >= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            and operatetime  &lt; #{endTime}
+        </if>
+        <if test="operateLog.actionName != null and operateLog.actionName != ''">
+            and actionName = #{operateLog.actionName}
+        </if>
+        <if test="operateLog.actionUrl != null and operateLog.actionUrl != ''">
+            and actionUrl = #{operateLog.actionUrl}
+        </if>
+        <if test="operateLog.operateIp != null and operateLog.operateIp != ''">
+            and operateIp = #{operateLog.operateIp}
+        </if>
+        <if test="operateLog.operatorId != null and operateLog.operatorId != ''">
+            and operatorId = #{operateLog.operatorId}
+        </if>
+    </sql>
+
+    <!-- 查询符合条件日志数量-->
+    <select id="queryCount" parameterType="java.util.Map" resultType="integer">
+        select count(1) from (
+        <include refid="querySQL"></include>
+        ) as logs
+    </select>
+
+    <!-- 查询符合条件日志-->
+    <select id="query" parameterType="java.util.Map" resultType="com.allbuywine.admin.bean.domain.OperateLog">
+        <include refid="querySQL"></include>
+        order by operateTime
+        limit <![CDATA[ #{page.iDisplayStart},#{page.iDisplayLength}]]>
+    </select>
+</mapper>
+

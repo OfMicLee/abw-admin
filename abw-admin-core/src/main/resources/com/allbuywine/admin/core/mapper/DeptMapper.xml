@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.allbuywine.admin.core.mapper.DeptMapper">
+
+
+    <!-- 查询部门总数 of1081_yxd-->
+    <select id="countDepts" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM abw_admin_dept dept
+        <if test="dept.name !=null and dept.name !=''">
+            where dept.name LIKE '%'||#{dept.name}||'%'
+        </if>
+    </select>
+
+    <select id="queryDepts" parameterType="java.util.Map" resultType="Dept">
+        select dept.id, dept.name, dept.description
+        from abw_admin_dept dept
+        <if test="dept.name !=null and dept.name !=''">
+            where dept.name LIKE '%'||#{dept.name}||'%'
+        </if>
+        ORDER BY dept.id desc
+        limit <![CDATA[ #{page.iDisplayStart},#{page.iDisplayLength}]]>
+    </select>
+
+    <select id="queryAllDepts" resultType="Dept">
+        select dept.id, dept.name, dept.description
+        from abw_admin_dept dept
+        ORDER BY dept.id desc
+    </select>
+
+
+    <!--添加部门-->
+    <insert id="add" parameterType="Dept">
+        INSERT INTO
+          abw_admin_dept(name, description)
+        VALUES(#{name, jdbcType=VARCHAR}, #{description, jdbcType=VARCHAR})
+    </insert>
+
+    <!--更新部门信息-->
+    <update id="update" parameterType="Dept">
+      UPDATE abw_admin_dept
+        <set>
+            <if test="name != null">name=#{name},</if>
+            <if test="description != null">description=#{description}</if>
+        </set>
+      WHERE id=#{id}
+    </update>
+
+    <!--删除部门-->
+    <delete id="delete">
+      DELETE from abw_admin_dept WHERE id=#{id}
+    </delete>
+
+    <!--根据id查询部门信息-->
+    <select id="getById" resultType="com.allbuywine.admin.bean.domain.Dept">
+        SELECT id, name, description FROM abw_admin_dept WHERE id=#{id}
+    </select>
+
+    <!--查询部门包含的员工工号列表 of583-->
+    <select id="listEmployee" resultType="java.lang.String">
+        select emp_no from abw_admin_employee_dept where dept_id = #{id}
+    </select>
+
+    <!--查询部门名称的数量-->
+    <select id="countDeptName" resultType="java.lang.Integer">
+      SELECT count(name) FROM abw_admin_dept WHERE name=#{name}
+      <if test="id != null">
+          AND id !=#{id}
+      </if>
+    </select>
+
+</mapper>
+

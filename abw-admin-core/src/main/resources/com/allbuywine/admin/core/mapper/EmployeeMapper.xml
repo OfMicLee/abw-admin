@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.allbuywine.admin.core.mapper.EmployeeMapper">
+
+    <!--新增员工信息 -->
+    <insert id="add" parameterType="com.allbuywine.admin.bean.domain.Employee">
+        insert into abw_admin_employee (emp_no, emp_name, email, mobile, description)
+        values (#{empNo, jdbcType=VARCHAR}, #{empName, jdbcType=VARCHAR}, #{email, jdbcType=VARCHAR},
+          #{mobile, jdbcType=VARCHAR}, #{description, jdbcType=VARCHAR})
+    </insert>
+
+    <!--新增员工与部门关系 -->
+    <insert id="addDeptRel">
+        insert into abw_admin_employee_dept (emp_no, dept_id)
+        values (#{empNo}, #{deptId})
+    </insert>
+
+    <!--更新员工信息 姓名和工号不可修改-->
+    <update id="modify" parameterType="com.allbuywine.admin.bean.domain.Employee">
+        update abw_admin_employee set
+          email = #{email, jdbcType=VARCHAR}, mobile = #{mobile, jdbcType=VARCHAR},
+          description = #{description, jdbcType=VARCHAR}, last_ip = #{lastIp, jdbcType=VARCHAR}, last_time = now()
+        where emp_no = #{empNo, jdbcType=VARCHAR}
+    </update>
+
+    <!--更新密码-->
+    <update id="modifyPass" parameterType="com.allbuywine.admin.bean.domain.Employee">
+        update abw_admin_employee set password = #{password, jdbcType=VARCHAR}
+        where emp_no = #{empNo, jdbcType=VARCHAR}
+    </update>
+
+    <!-- 获取密码 -->
+    <select id="getPassByNo" resultType="java.lang.String">
+        select password from abw_admin_employee where emp_no = #{empNo}
+    </select>
+
+    <!--修改锁定状态 -->
+    <update id="lock">
+        update abw_admin_employee set locked = #{locked} where emp_no = #{empNo}
+    </update>
+
+    <!--修改员工与部门关系 -->
+    <update id="updateDeptRel">
+        update abw_admin_employee_dept set emp_no = #{empNo}, dept_id = #{deptId}
+        where emp_no = #{empNo}
+    </update>
+
+    <!--删除员工信息 -->
+    <delete id="delete">
+        delete from abw_admin_employee where emp_no = #{empNo}
+    </delete>
+
+    <!--删除员工与部门的关联 -->
+    <delete id="deleteDeptRel">
+        delete from abw_admin_employee_dept where emp_no = #{empNo}
+    </delete>
+
+    <!--查询所有员工记录 -->
+    <select id="listAll" resultType="com.allbuywine.admin.bean.domain.Employee">
+        select emp_no empNo, emp_name empName, email, mobile, description, last_ip lastIp,
+          date_format(last_time, '%Y%m%d %H:%i:%s') lastTime, locked
+        from abw_admin_employee
+        order by empno asc
+    </select>
+
+    <!--根据工号查询员工信息 不查询密码-->
+    <select id="getByNo" resultType="com.allbuywine.admin.bean.domain.Employee">
+        select emp_no empNo, emp_name empName, email, mobile, description, last_ip lastIp,
+          date_format(last_time, '%Y%m%d %H:%i:%s') lastTime, locked
+        from abw_admin_employee
+        where emp_no = #{empNo}
+    </select>
+
+    <!--获取员工所属的部门 -->
+    <select id="getDept" resultType="com.allbuywine.admin.bean.domain.Dept">
+        select a.id, a.name, a.description
+        from abw_admin_dept a, abw_admin_employee_dept b
+        where a.id = b.dept_id and b.emp_no = #{empNo}
+    </select>
+
+</mapper>

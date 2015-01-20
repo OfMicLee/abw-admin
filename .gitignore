@@ -1,0 +1,12 @@
+.settings/
+target/
+.project
+.classpath
+.mymetadata
+.idea/
+*.iml
+rebel.xml
+*.pdb
+*/test
+.Ds_Store
+.gitignore

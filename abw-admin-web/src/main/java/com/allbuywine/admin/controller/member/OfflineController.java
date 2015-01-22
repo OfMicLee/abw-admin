@@ -1,4 +1,5 @@
 package com.allbuywine.admin.controller.member;
+
 import com.allbuywine.admin.annotation.ActionInfo;
 import com.allbuywine.admin.bean.domain.MemberOffline;
 import com.allbuywine.admin.bean.exception.AbwAdminException;
@@ -30,16 +31,19 @@ public class OfflineController extends BaseController
 
     /**
      * 线下会员首页
+     *
      * @return
      */
     @ActionInfo("访问线下会员列表页面")
     @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String online() {
+    public String online ()
+    {
         return "member/offline-index";
     }
 
     /**
      * 查询线下会员列表
+     *
      * @param memberForm
      * @param request
      * @return
@@ -47,7 +51,7 @@ public class OfflineController extends BaseController
      */
     @RequestMapping(value = "/query", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> query(OfflineMemberForm memberForm, HttpServletRequest request) throws AbwAdminException
+    public Map<String, Object> query (OfflineMemberForm memberForm, HttpServletRequest request) throws AbwAdminException
     {
         logger.debug("Action.URL={},param={}", RequestUtil.getRestURL(request), memberForm.toString());
         Pagination page = new Pagination(request, memberForm.getiDisplayStart(), memberForm.getiDisplayLength());

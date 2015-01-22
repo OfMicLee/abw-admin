@@ -8,7 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext
  *
  */
 class BaseTest {
-    def ctx = new ClassPathXmlApplicationContext("applicationContext-core.xml")
+    def ctx = new ClassPathXmlApplicationContext("applicationContext-core-test.xml")
 
     def getBean(String bean) {
         return ctx.getBean(bean)

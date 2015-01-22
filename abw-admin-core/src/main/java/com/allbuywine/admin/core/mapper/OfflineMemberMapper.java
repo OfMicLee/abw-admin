@@ -1,6 +1,7 @@
 package com.allbuywine.admin.core.mapper;
 
 import com.allbuywine.admin.bean.domain.MemberOffline;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.Map;
  * 线下会员管理
  * Created by MicLee on 1/19/15.
  */
+@Repository
 public interface OfflineMemberMapper
 {
     /**

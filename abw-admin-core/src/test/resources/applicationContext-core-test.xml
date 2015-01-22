@@ -20,13 +20,13 @@
         </property>
     </bean>
 
-    <!-- 扫描注解的bean -->
-    <context:component-scan base-package="com.allbuywine.admin.core" />
+    <!-- enable component scanning (beware that this does not enable mapper scanning!) -->
+    <context:component-scan base-package="com.allbuywine.admin.core.service" />
 
     <!-- enable autowire -->
     <context:annotation-config />
 
-    <!--日志数据库mysql 写数据源 -->
+    <!-- DataSource -->
     <bean id="mySQLDataSource" class="org.apache.commons.dbcp.ManagedBasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${mysql.jdbc.driverClassName}" />
         <property name="url" value="${mysql.jdbc.url}" />
@@ -59,15 +59,15 @@
         <property name="dataSource" ref="mySQLDataSource" />
     </bean>
 
-    <!--  配置连接main 的SessionFactory -->
+    <!--  SessionFactory -->
     <bean id="mySQLSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="mySQLDataSource" />
         <property name="typeAliasesPackage" value="com.allbuywine.admin.bean.domain" />
-        <!-- 显式指定Mapper文件位置 -->
+        <!-- Mapper Location -->
         <property name="mapperLocations" value="classpath:/com/allbuywine/admin/core/mapper/*Mapper.xml" />
     </bean>
 
-    <!--  配置连接main 的MapperScannerConfigurer -->
+    <!-- MapperScannerConfigurer -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.allbuywine.admin.core.mapper" />
         <property name="sqlSessionFactoryBeanName" value="mySQLSessionFactory"/>

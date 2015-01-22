@@ -11,7 +11,7 @@ class EmployeeServiceTest extends BaseTest {
 
     @Test
     def void testGetByNo() {
-        println(employeeService.get("of578"))
+        println(employeeService.get("ABW002"))
     }
 
 

@@ -40,8 +40,6 @@ public interface DeptMapper {
      */
     int countDepts (Map<String, Object> paramMap);
 
-
-
     /**
      * 添加部门
      *

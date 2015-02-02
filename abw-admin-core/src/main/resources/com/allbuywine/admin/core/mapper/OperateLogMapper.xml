@@ -21,7 +21,7 @@
             and operatetime  &lt; #{endTime}
         </if>
         <if test="operateLog.actionName != null and operateLog.actionName != ''">
-            and actionName = #{operateLog.actionName}
+            and instr(actionName, #{operateLog.actionName}) > 0
         </if>
         <if test="operateLog.actionUrl != null and operateLog.actionUrl != ''">
             and actionUrl = #{operateLog.actionUrl}

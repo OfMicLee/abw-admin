@@ -22,12 +22,15 @@ public class OnlineMemberForm extends MemberForm
 
     public MemberOnline toMember() {
         MemberOnline online = new MemberOnline();
+        online.setId(this.getId());
         online.setLoginCode(this.loginCode);
         online.setEmail(this.getEmail());
         online.setMobile(this.getMobile());
         online.setPoint(this.getPoint());
         online.setName(this.getName());
         online.setSex(this.getSex());
+        online.setQq(this.getQq());
+        online.setWeixin(this.getWeixin());
         return online;
     }
 }

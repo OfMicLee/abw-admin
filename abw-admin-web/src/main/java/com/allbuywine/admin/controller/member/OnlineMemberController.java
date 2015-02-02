@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 @RequestMapping("/member/online")
-public class OnlineController extends BaseController
+public class OnlineMemberController extends BaseController
 {
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String online() {

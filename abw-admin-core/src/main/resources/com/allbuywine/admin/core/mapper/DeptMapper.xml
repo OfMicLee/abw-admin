@@ -9,7 +9,7 @@
     <select id="countDepts" parameterType="java.util.Map" resultType="java.lang.Integer">
         SELECT COUNT(1) FROM abw_admin_dept dept
         <if test="dept.name !=null and dept.name !=''">
-            where dept.name LIKE '%'||#{dept.name}||'%'
+            where instr(dept.name, #{dept.name}) > 0
         </if>
     </select>
 
@@ -17,7 +17,7 @@
         select dept.id, dept.name, dept.description
         from abw_admin_dept dept
         <if test="dept.name !=null and dept.name !=''">
-            where dept.name LIKE '%'||#{dept.name}||'%'
+            where instr(dept.name, #{dept.name}) > 0
         </if>
         ORDER BY dept.id desc
         limit <![CDATA[ #{page.iDisplayStart},#{page.iDisplayLength}]]>

@@ -1,5 +1,7 @@
 package com.allbuywine.admin.core.util;
 
+import com.allbuywine.admin.bean.enums.Regular;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -14,43 +16,6 @@ public class ParameterUtil
     {
         throw new UnsupportedOperationException();
     }
-
-    /**
-     * IP地址正则表达式
-     * ((?:(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d)\\.){3}(?:25[0-5]|2[0-4]\\
-     * d|[01]?\\d?\\d))
-     */
-    public static final String IPADDRESS = "((?:(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d)\\.){3}(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d))";
-
-    /**
-     * Email正则表达式=^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$
-     */
-    public static final String EMAIL = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
-
-    /**
-     * Double正则表达式 ^-?([1-9]\d*\.\d*|0\.\d*[1-9]\d*|0?\.0+|0)$
-     */
-    public static final String DOUBLE = "^-?([1-9]\\d*\\.\\d*|0\\.\\d*[1-9]\\d*|0?\\.0+|\\d*)$";
-
-    /**
-     * 价格正则表达式 (正数不能为零、最多有3有小数，如果第一位为0则下一位必须为小数点)
-     */
-    public static final String PRICE = "^[+]?(([1-9]\\d*[.]?)|(0.))(\\d{0,3})?$";
-
-    /**
-     * 时间正则表达式
-     */
-    public static final String DATE = "^((\\d{2}(([02468][048])|([13579][26]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])))))|(\\d{2}(([02468][1235679])|([13579][01345789]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|(1[0-9])|(2[0-8]))))))(\\s(((0?[0-9])|([1-2][0-9]))\\:([0-5]?[0-9])((\\s)|(\\:([0-5]?[0-9])))))?$";
-
-    /**
-     * 不包含非法字符
-     */
-    public static final String DO_NOT_HAVE_ILLEGAL = "[^&\\\\<>'\"]+";
-
-    /**ß
-     * 不包含非法字符
-     */
-    public static final String DO_NOT_HAVE_ILLEGAL_SPECVAL = "^[^\\&<>\\\\]*$";
 
     /**
      * 如果传入的value为空，返回defaultValue
@@ -114,7 +79,7 @@ public class ParameterUtil
      */
     public static boolean isDate(String str)
     {
-        return regular(str, DATE);
+        return regular(str, Regular.DATE);
     }
 
     /**
@@ -126,7 +91,7 @@ public class ParameterUtil
      */
     public static boolean isPrice(String str)
     {
-        return regular(str, PRICE);
+        return regular(str, Regular.PRICE);
     }
 
     /**
@@ -137,7 +102,7 @@ public class ParameterUtil
      */
     public static boolean isEmail(String str)
     {
-        return regular(str, EMAIL);
+        return regular(str, Regular.EMAIL);
     }
 
     /**
@@ -148,7 +113,7 @@ public class ParameterUtil
      */
     public static boolean isNumber(String str)
     {
-        return regular(str, DOUBLE);
+        return regular(str, Regular.DOUBLE);
     }
 
     /**
@@ -159,7 +124,7 @@ public class ParameterUtil
      */
     public static boolean isIpaddress(String str)
     {
-        return regular(str, IPADDRESS);
+        return regular(str, Regular.IPADDRESS);
     }
 
     /**
@@ -274,8 +239,7 @@ public class ParameterUtil
         {
             return false;
         }
-        String regex = "^1[34578]\\d{9}$";
-        return mobileno.matches(regex);
+        return mobileno.matches(Regular.MOBILE);
     }
 
     public static boolean isMobile(Long mobileNo)

@@ -19,8 +19,8 @@
     <script type="text/javascript" src="/js/jquery.dataTables.init.js"></script>
     <script type="text/javascript" src="/js/handlebars1.3.0.js"></script>
     <script type="text/javascript" src="/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
     <script type="text/javascript" src="/js/ofcs.js"></script>
-    <script type="text/javascript" src="/js/handlebars1.3.0.js"></script>
 </head>
 <body>
 <div class="page-wrapper">
@@ -42,7 +42,7 @@
                     <li class="item">
                         <div class="input-group">
                             <span class="input-group-addon">姓名</span>
-                            <input type="text" name="memberName" id="operatorId" class="form-control" placeholder="会员姓名">
+                            <input type="text" name="name" id="name" class="form-control" placeholder="会员姓名">
                         </div>
                     </li>
                     <li class="item">
@@ -78,8 +78,9 @@
                     <th>编号</th>
                     <th>姓名</th>
                     <th>性别</th>
-                    <th>电话</th>
-                    <th>邮箱</th>
+                    <th>手机</th>
+                    <th>QQ</th>
+                    <th>微信号</th>
                     <th>积分</th>
                     <th>注册时间</th>
                     <th>地址</th>
@@ -95,12 +96,16 @@
 <script type="text/javascript">
 
     $(function () {
+        var _currentDate =new Date();
+        //默认时间段
+//        $('#startTime').val((_currentDate.getYear() +1900)+"-"+(_currentDate.getMonth()+1)+"-"+ _currentDate.getDate()+" 00:00:00");
+//        $('#endTime').val((_currentDate.getYear() +1900)+"-"+(_currentDate.getMonth()+1)+"-"+ _currentDate.getDate()+" 23:59:59");
 
         $("#memberList").dataTables({
             "sAjaxSource": "/member/offline/query",
             "bSort": false,
             "fnServerData": function (sSource, aoData, fnCallback) {
-                $("#member_paginate").hide();
+                $("#memberList_paginate").hide();
                 var postData = aoData.concat($('#searchForm').serializeArray());
                 $.post(sSource, postData, function (json) {
                     if (json.result === "success") {
@@ -109,13 +114,13 @@
                         });
                         fnCallback(json.data);
                     } else {
-                        $("#member tbody").html('<tr style="text-align: center;"><td colspan="5">获取数据失败！</td></tr>');
+                        $("#memberList tbody").html('<tr style="text-align: center;"><td colspan="5">获取数据失败！</td></tr>');
                         dialog_simple_ok("获取拼列表失败!", false, "145px");
                     }
                 });
             },
             "fnDrawCallback": function () {
-                $("#member_paginate").show();
+                $("#memberList_paginate").show();
             },
             "aoColumns": [
                 {
@@ -129,9 +134,53 @@
                     "bSortable": false
                 },
                 {
-                    "sName": "description",
-                    mDataProp: "description",
+                    "sName": "sex",
+                    mDataProp: "sex",
                     "bSortable": false
+                },
+                {
+                    "sName": "mobile",
+                    mDataProp: "mobile",
+                    "bSortable": false
+                },
+                {
+                    "sName": "qq",
+                    mDataProp: "qq",
+                    "bSortable": false
+                },
+                {
+                    "sName": "weixin",
+                    mDataProp: "weixin",
+                    "bSortable": false
+                },
+                {
+                    "sName": "point",
+                    mDataProp: "point",
+                    "bSortable": false
+                },
+                {
+                    "sName": "registerDate",
+                    mDataProp: "registerDate",
+                    "bSortable": false
+                },
+                {
+                    "sName": "address",
+                    "bSortable": false,
+                    mDataProp: function (aData, type, val) {
+                        var _length =20;
+                        var _text =(typeof(aData.address) == 'undefined') ? "..." : aData.address.toString()
+                        var _extFlat =false ;
+                        var _shortTxt ;
+                        if(_text.length > _length)
+                            _extFlat=true;
+                        if(_extFlat)
+                            _shortTxt =_text.substr(0,_length)
+                        else
+                            _shortTxt=_text;
+                        var _a ="<a style='text-decoration:none;color:#000' title='"+_text +"' >"+_shortTxt+"</a>";
+                        var _more ="<a href='javascript:' onclick='popParams(this)'>&nbsp;更多...</a>";
+                        return  _extFlat ? _a+_more:_a;
+                    }
                 },
                 {
                     "bSortable": false,
@@ -146,11 +195,21 @@
             ]
         });
 
-        $('#member thead th:first').removeClass('details-open-control');
+        $('#memberList thead th:first').removeClass('details-open-control');
 
         //搜索&刷新
         $("#search").click(function () {
-            $("#member").refreshData();
+            var _startTime= $('#startTime').val();
+            var _endTime= $('#endTime').val();
+            if(_startTime!= "" &&  _endTime!=""){//选择了时间
+                var _begDate =new Date(Date.parse(_startTime.replace(/-/g,   "/")));
+                var _endDate =new Date(Date.parse(_endTime.replace(/-/g,   "/")));
+                if(_begDate > _endDate){
+                    dialog_simple_fail("开始时间不能大于结束时间！",false ,"145px");
+                    return false ;
+                }
+            }
+            $("#memberList").refreshData();
         });
 
 
@@ -171,7 +230,7 @@
     }
 
     /**
-     * 删除单个部门
+     * 删除单个会员
      * @param id
      */
     function del(id){
@@ -179,7 +238,7 @@
             $.post('/member/offline/delete', {id: id})
                 .done(function(res) {
                     if (res.result == 'ok') {
-                        $("#member").refreshData();///删除成功后更新表单中的数据
+                        $("#memberList").refreshData();///删除成功后更新表单中的数据
                     } else {
                         dialog_simple_fail(res.msg, false, '130px');
                     }
@@ -190,6 +249,14 @@
         }});
     }
 
+
+    /**
+     * 弹出全部参数信息在
+     * @param obj
+     */
+    function popParams(obj) {
+        dialog_prompt({title:'更多信息',content:$(obj).prev().attr('title'),isParent:true,height:350,width:550});
+    }
 </script>
 
 <!--列表的最后一列， 操作-->

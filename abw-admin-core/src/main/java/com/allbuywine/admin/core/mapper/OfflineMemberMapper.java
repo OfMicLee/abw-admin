@@ -1,6 +1,7 @@
 package com.allbuywine.admin.core.mapper;
 
 import com.allbuywine.admin.bean.domain.MemberOffline;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,5 +27,36 @@ public interface OfflineMemberMapper
      * @return
      */
     List<MemberOffline> queryMembers(Map<String, Object> paramMap);
+
+    /**
+     * 根据会员编号获取会员信息
+     * @param id
+     * @return
+     */
+    MemberOffline getById (@Param("id") String id);
+
+    /**
+     * 新增会员
+     * @param member
+     */
+    void add (MemberOffline member);
+
+    /**
+     * 修改会员
+     * @param member
+     */
+    void update (MemberOffline member);
+
+    /**
+     * 获取最大会员编码
+     * @return
+     */
+    Integer getMaxId ();
+
+    /**
+     * 删除会员
+     * @param id
+     */
+    void delete (String id);
 
 }

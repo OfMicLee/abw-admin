@@ -14,6 +14,8 @@ public abstract class Member extends BaseBean
     //主键 A00001
     private String id;
 
+    private Integer idCode;
+
     //真实姓名
     private String name;
 
@@ -21,13 +23,19 @@ public abstract class Member extends BaseBean
 
     private String email;
 
-    private SexEnum sex;
+    private SexEnum sexEnum;
+
+    private String sex;
 
     //积分
-    private Integer point;
+    private String point;
 
     //注册日期
-    private Date registerDate;
+    private String registerDate;
+
+    private String qq;
+
+    private String weixin;
 
     public String getId ()
     {
@@ -69,33 +77,74 @@ public abstract class Member extends BaseBean
         this.email = email;
     }
 
-    public SexEnum getSex ()
+    public String getSex ()
     {
         return sex;
     }
 
-    public void setSex (SexEnum sex)
+    public void setSex (String sex)
     {
         this.sex = sex;
+        this.sexEnum = SexEnum.getSexEnumFromStr(sex);
     }
 
-    public Integer getPoint ()
+    public String getPoint ()
     {
         return point;
     }
 
-    public void setPoint (Integer point)
+    public void setPoint (String point)
     {
         this.point = point;
     }
 
-    public Date getRegisterDate ()
+    public SexEnum getSexEnum ()
+    {
+        return sexEnum;
+    }
+
+    public void setSexEnum (SexEnum sexEnum)
+    {
+        this.sexEnum = sexEnum;
+    }
+
+    public String getRegisterDate ()
     {
         return registerDate;
     }
 
-    public void setRegisterDate (Date registerDate)
+    public void setRegisterDate (String registerDate)
     {
         this.registerDate = registerDate;
+    }
+
+    public String getQq ()
+    {
+        return qq;
+    }
+
+    public void setQq (String qq)
+    {
+        this.qq = qq;
+    }
+
+    public String getWeixin ()
+    {
+        return weixin;
+    }
+
+    public void setWeixin (String weixin)
+    {
+        this.weixin = weixin;
+    }
+
+    public Integer getIdCode ()
+    {
+        return idCode;
+    }
+
+    public void setIdCode (Integer idCode)
+    {
+        this.idCode = idCode;
     }
 }

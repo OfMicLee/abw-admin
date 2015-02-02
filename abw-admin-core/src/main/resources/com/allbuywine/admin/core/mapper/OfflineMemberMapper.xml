@@ -4,22 +4,86 @@
 
 <mapper namespace="com.allbuywine.admin.core.mapper.OfflineMemberMapper">
 
-    <select id="countMembers" parameterType="java.util.Map" resultType="java.lang.Integer">
-        SELECT COUNT(1) FROM abw_admin_member_offline member
+    <sql id="queryMembersSql">
+        select member.id, member.name, member.mobile, member.email, member.qq, member.weixin, member.sex, member.address, member.point,
+        date_format(member.register_date,'%Y-%m-%d %T')registerDate
+        from abw_admin_member_offline member where member.state=1
         <if test="member.name !=null and member.name !=''">
-            where member.name LIKE '%'||#{member.name}||'%'
+            and instr(member.name, #{member.name}) > 0
         </if>
+        <if test="startTime != null and startTime != ''">
+            and member.register_date >= #{startTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            and member.register_date  &lt; #{endTime}
+        </if>
+    </sql>
+
+    <select id="countMembers" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM (
+          <include refid="queryMembersSql"></include>
+        ) as members
     </select>
 
     <select id="queryMembers" parameterType="java.util.Map" resultType="MemberOffline">
-        select member.id, member.name, member.mobile, member.email, member.sex, member.address, member.point,
-        member.register_date
-        from abw_admin_member_offline member
-        <if test="member.name !=null and member.name !=''">
-            where member.name LIKE '%'||#{member.name}||'%'
-        </if>
+        <include refid="queryMembersSql"></include>
         ORDER BY member.id desc
         limit <![CDATA[ #{page.iDisplayStart},#{page.iDisplayLength}]]>
+    </select>
+
+    <select id="getById" parameterType="java.lang.String" resultType="MemberOffline">
+        select member.id, member.name, member.mobile, member.email, member.qq, member.weixin, member.sex, member.address, member.point
+        from abw_admin_member_offline member
+        where member.id = #{id}
+    </select>
+
+    <!--添加会员-->
+    <insert id="add" parameterType="MemberOffline">
+        INSERT INTO
+          abw_admin_member_offline(id, name, mobile, email, qq, weixin, sex, address, point, register_date, id_code, state)
+        VALUES(#{id}, #{name}, #{mobile}, #{email}, #{qq}, #{weixin}, #{sex}, #{address}, #{point}, now(), #{idCode}, 1)
+    </insert>
+
+    <!--更新会员信息-->
+    <update id="update" parameterType="MemberOffline">
+        UPDATE abw_admin_member_offline
+        <set>
+            <if test="name !=null and name !=''">
+                name=#{name}
+            </if>
+            <if test="mobile != null and mobile !=''">
+              ,mobile=#{mobile}
+            </if>
+            <if test="email != null and email !=''">
+            ,email=#{email}
+            </if>
+            <if test="qq != null and qq !=''">
+                ,qq=#{qq}
+            </if>
+            <if test="weixin != null and weixin !=''">
+                ,weixin=#{weixin}
+            </if>
+            <if test="sex != null and sex !=''">
+                ,sex=#{sex}
+            </if>
+            <if test="address != null and address !=''">
+                ,address=#{address}
+            </if>
+            <if test="point != null and point !=''">
+                ,point=#{point}
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <!-- 会员软删除 -->
+    <update id="delete" parameterType="java.lang.String">
+        update abw_admin_member_offline set state=9 where id=#{id}
+    </update>
+
+    <!-- 获取会员最大编码 -->
+    <select id="getMaxId" resultType="java.lang.Integer">
+        select max(id_code) from abw_admin_member_offline
     </select>
 </mapper>
 

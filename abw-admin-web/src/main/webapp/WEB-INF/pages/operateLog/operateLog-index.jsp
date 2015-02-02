@@ -150,7 +150,7 @@
                         else
                             _shortTxt=_text;
                         var _a ="<a style='text-decoration:none;color:#000' title='"+_text +"' >"+_shortTxt+"</a>";
-                        var _more ="<a href='javascript:' onclick='popParams(this)'>更多...</a>";
+                        var _more ="<a href='javascript:' onclick='popParams(this)'>&nbsp;更多...</a>";
                         return  _extFlat ? _a+_more:_a;
                     }
                 },
@@ -167,7 +167,7 @@
             ]
         });
 
-        $('#deptList thead th:first').removeClass('details-open-control');
+        $('#logList thead th:first').removeClass('details-open-control');
 
         //搜索&刷新
         $("#search").click(function () {
@@ -198,7 +198,7 @@
     * @param obj
      */
     function popParams(obj){
-        dialog_prompt({title:'测试标题',content:$(obj).prev().attr('title'),isParent:true,height:350,width:550});
+        dialog_prompt({title:'更多信息',content:$(obj).prev().attr('title'),isParent:true,height:350,width:550});
     }
     </script>
 </body>

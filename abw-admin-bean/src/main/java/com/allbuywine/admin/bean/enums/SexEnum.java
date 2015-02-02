@@ -17,23 +17,43 @@ public enum SexEnum
         this.value = value;
     }
 
-    public String getValue()
+    public String getValue ()
     {
         return value;
     }
 
-    public boolean equals(String str)
+    public boolean equals (String str)
     {
         return this.value.equals(str);
     }
 
-    public boolean equalsIgnoreCase(String str)
+    public boolean equalsIgnoreCase (String str)
     {
         return this.value.equalsIgnoreCase(str);
     }
 
+    public static SexEnum getSexEnumFromStr (String value)
+    {
+        if (value == null)
+        {
+            return null;
+        }
+        else if ("男".equals(value))
+        {
+            return MALE;
+        }
+        else if ("女".equals(value))
+        {
+            return FEMALE;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     @Override
-    public String toString()
+    public String toString ()
     {
         return this.value;
     }

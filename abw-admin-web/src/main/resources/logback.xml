@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="true" scan="true" scanPeriod="30 seconds">
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径 -->
-    <contextName>itemcenter</contextName>
+    <contextName>allbuywine</contextName>
     <property scope="context" name="CHARSET" value="utf-8" />
 
-    <property scope="context" name="LOG_HOME" value="${catalina.base}/abwAdminlogs/" />
+    <property scope="context" name="LOG_HOME" value="${catalina.base}/abwAdminlogs" />
     <property scope="context" name="APP_LOG_HOME" value="${LOG_HOME}/app" />
     <property scope="context" name="ERR_LOG_HOME" value="${LOG_HOME}/err" />
 

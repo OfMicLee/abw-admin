@@ -13,7 +13,7 @@ import java.util.List;
 
 
 /**
- * hufeng on 14-6-30.
+ * MicLee on 14-6-30.
  * Description：权限service
  */
 @Service
@@ -39,7 +39,7 @@ public class RightsService {
     /**
      * 保存权限
      *
-     * hufeng(of730)
+     * MicLee(of730)
      * @param rights
      *  权限pojo
      */
@@ -50,7 +50,7 @@ public class RightsService {
     /**
      * 更新权限
      *
-     * hufeng(of730)
+     * MicLee(of730)
      * @param rights
      *  权限pojo
      */
@@ -61,7 +61,7 @@ public class RightsService {
     /**
      * 删除权限
      *
-     * hufeng(of730)
+     * MicLee(of730)
      * @param id
      *  权限id
      */
@@ -80,7 +80,7 @@ public class RightsService {
     /**
      * 查询当个权限节点信息
      *
-     * hufeng(of730)
+     * MicLee(of730)
      * @param id
      *  权限id
      * @return

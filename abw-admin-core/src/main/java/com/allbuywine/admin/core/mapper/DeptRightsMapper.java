@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * hufeng on 14-7-2.
+ * MicLee on 14-7-2.
  * Description：部门权限的Mapper
  */
 @Repository
@@ -16,7 +16,7 @@ public interface DeptRightsMapper
 {
     /**
      * 保存部门对应的权限
-     * hufeng(of730)
+     * 
      *
      * @param deptId     部门编号
      * @param rightsList 权限编号列表
@@ -32,7 +32,7 @@ public interface DeptRightsMapper
 
     /**
      * 批量删除部门关联的权限
-     * hufeng(of730)
+     * 
      *
      * @param deptId       部门id
      * @param rightsIdList 对于删除的权限
@@ -41,7 +41,7 @@ public interface DeptRightsMapper
 
     /**
      * 根据部门id查询对应的权限id的List
-     * hufeng(of730)
+     * 
      *
      * @param deptId
      * @return
@@ -51,7 +51,7 @@ public interface DeptRightsMapper
 
     /**
      * 根据部门获取非空url的url集合
-     * hufeng(of730)
+     * 
      *
      * @param deptId
      * @return
@@ -60,7 +60,7 @@ public interface DeptRightsMapper
 
     /**
      * 根据部门id获取用户权限信息用于菜单展示
-     * hufeng(of730)
+     * 
      *
      * @param deptId
      * @return
@@ -69,7 +69,7 @@ public interface DeptRightsMapper
 
     /**
      * 菜单是否关联部门
-     * hufeng(of730)
+     * 
      *
      * @param id
      * @return
@@ -78,7 +78,7 @@ public interface DeptRightsMapper
 
     /**
      * 查询部门关联菜单的数量
-     * hufeng(of730)
+     * 
      *
      * @param id
      * @return

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * hufeng on 14-7-1.
+ * MicLee on 14-7-1.
  * Description：部门service
  */
 @Service
@@ -73,7 +73,7 @@ public class DeptService
     /**
      * 添加部门
      *
-     * hufeng(of730)
+     * MicLee(of730)
      * @param dept
      */
     public void add(Dept dept) {
@@ -83,7 +83,7 @@ public class DeptService
     /**
      * 更新部门
      *
-     * hufeng(of730)
+     * MicLee(of730)
      * @param dept
      */
     public void update(Dept dept) {
@@ -93,7 +93,7 @@ public class DeptService
     /**
      * 删除部门
      *
-     * hufeng(of730)
+     * MicLee(of730)
      * @param id
      */
     public void delete(Integer id) throws RuntimeException
@@ -108,7 +108,7 @@ public class DeptService
     /**
      * 根据id查询部门信息
      *
-     * hufeng(of730)
+     * MicLee(of730)
      * @param id
      */
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -127,7 +127,7 @@ public class DeptService
     /**
      * 判断部门名称是否重复
      *
-     * hufeng(of730)
+     * MicLee(of730)
      * @param id
      * @param name
      * @return

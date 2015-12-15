@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * hufeng on 14-7-2.
+ * MicLee on 14-7-2.
  * Description：部门权限Service
  */
 @Service
@@ -62,7 +62,7 @@ public class DeptRightsService
     /**
      * 批量添加部门权限
      *
-     * hufeng(of730)
+     * MicLee(of730)
      * @param deptId 部门编号
      * @param rightsList 权限编号列表
      */
@@ -73,7 +73,7 @@ public class DeptRightsService
     /**
      * 删除单个部门对应的权限
      *
-     * hufeng(of730)
+     * MicLee(of730)
      * @param deptRights
      */
     public void delete(DeptRights deptRights) {
@@ -83,7 +83,7 @@ public class DeptRightsService
     /**
      * 批量删除
      *
-     * hufeng(of730)
+     * MicLee(of730)
      * @param deptId 部门id
      * @param rightsList 权限idList
      */
@@ -94,7 +94,7 @@ public class DeptRightsService
     /**
      * 根据部门id查询权限
      *
-     * hufeng(of730)
+     * MicLee(of730)
      * @param deptId
      * @return
      */
@@ -106,7 +106,7 @@ public class DeptRightsService
     /**
      * 根据部门id查询权限url
      *
-     * hufeng(of730)
+     * MicLee(of730)
      * @param id
      * @return
      */
@@ -118,7 +118,7 @@ public class DeptRightsService
     /**
      * 根据部门id查询权限列表
      *
-     * hufeng(of730)
+     * MicLee(of730)
      * @param deptId
      * @return
      */

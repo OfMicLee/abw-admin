@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * hufeng on 14-6-30.
+ * MicLee on 14-6-30.
  * Description：权限的mapper接口
  */
 @Repository
@@ -17,7 +17,7 @@ public interface RightsMapper {
     /**
      * 删除权限
      *
-     * hufeng(of730)
+     * 
      * @param id
      */
     void delete (@Param("id") Integer id);
@@ -25,7 +25,7 @@ public interface RightsMapper {
     /**
      * 保存权限
      *
-     * hufeng(of730)
+     * 
      * @param rights
      *  权限pojo
      */
@@ -35,7 +35,7 @@ public interface RightsMapper {
     /**
      * 更新权限
      *
-     * hufeng(of730)
+     * 
      * @param rights
      *  权限pojo
      */
@@ -44,7 +44,7 @@ public interface RightsMapper {
     /**
      * 单个权限节点的查询
      *
-     * hufeng(of730)
+     * 
      * @param id
      * @return
      */
@@ -61,7 +61,7 @@ public interface RightsMapper {
     /**
      * 根据父查询子权限数量
      *
-     * hufeng(of730)
+     * 
      * @param id
      * @return
      */

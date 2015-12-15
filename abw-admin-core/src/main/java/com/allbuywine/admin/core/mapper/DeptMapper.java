@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * hufeng on 14-7-1.
+ * MicLee on 14-7-1.
  * Description：部门Mapper
  */
 @Repository
@@ -17,7 +17,7 @@ public interface DeptMapper {
     /**
      * 分页查询部门列表
      *
-     * @author of1081(yangxiaodong)
+     * @author 
      * @param paramMap
      * @return
      */
@@ -26,7 +26,7 @@ public interface DeptMapper {
     /**
      * 查询全部部门列表，以ID倒序排
      *
-     * @author of1081(yangxiaodong)
+     * @author 
      * @return
      */
     List<Dept> queryAllDepts ();
@@ -34,7 +34,7 @@ public interface DeptMapper {
     /**
      * 部门总数
      *
-     * @author of837_jh
+     * @author 
      * @param paramMap
      * @return
      */
@@ -43,7 +43,6 @@ public interface DeptMapper {
     /**
      * 添加部门
      *
-     * hufeng(of730)
      * @param dept
      */
     void add (Dept dept);
@@ -51,7 +50,6 @@ public interface DeptMapper {
     /**
      * 根据id删除部门
      *
-     * hufeng(of730)
      * @param id
      */
     void delete (@Param("id") Integer id);
@@ -60,7 +58,6 @@ public interface DeptMapper {
     /**
      * 更新部门信息
      *
-     * hufeng(of730)
      * @param dept
      */
     void update (Dept dept);
@@ -68,7 +65,6 @@ public interface DeptMapper {
     /**
      * 根据id查询部门信息
      *
-     * hufeng(of730)
      * @param id
      * @return
      */
@@ -83,7 +79,6 @@ public interface DeptMapper {
     /**
      * 查询部门名称的数量
      *
-     * hufeng(of730)
      * @param id
      * @param name
      * @return

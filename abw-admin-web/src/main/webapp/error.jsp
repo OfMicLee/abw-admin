@@ -4,11 +4,11 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>505</title>
+    <title>Error</title>
 </head>
 <body>
 <h1>Error Page</h1>
-<p>Application has encountered an error. Please contact support on ...</p>
+<p>服务端错误</p>
 <p>${msg}</p>
 </body>
 </html>
